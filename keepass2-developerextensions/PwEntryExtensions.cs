@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 
-namespace HaveIBeenPwned.Extensions
+namespace KeePassExtensions
 {
     public static class PwEntryExtensions
     {
@@ -12,18 +12,18 @@ namespace HaveIBeenPwned.Extensions
         {
             if (entry.History != null && entry.History.Any())
             {
-                var sortedEntries = entry.History.OrderByDescending(h => h.LastModificationTime).ToList();
-                for (var i = 0; i < sortedEntries.Count(); i++)
+                var sortedEntries = entry.History.OrderBy(h => h.LastModificationTime).ToList();
+                var lastModified = entry.LastModificationTime;
+
+                for (var i = sortedEntries.Count() - 1; i >= 0; i--)
                 {
-                    if (!entry.Strings.GetSafe(PwDefs.PasswordField).ValueEquals(sortedEntries[i].Strings.GetSafe(PwDefs.PasswordField)))
-                    {
-                        // the last time the password was changed was the entry before the current one (ordered new to old)
-                        return i == 0 ? entry.LastModificationTime : sortedEntries[i - 1].LastModificationTime;
-                    }
+                    var same = entry.Strings.GetSafe(PwDefs.PasswordField).ValueEquals(sortedEntries[i].Strings.GetSafe(PwDefs.PasswordField));
+                    if (!same) break;
+                    lastModified = sortedEntries[i].LastModificationTime;
                 }
 
                 // if the password is the same in the entry and all history items all we know is that it is at least as old as the earliest history item
-                return sortedEntries.Last().LastModificationTime;
+                return lastModified;
             }
 
             // no history means either the password has just been set, or the history has been pruned in which case we have no other data

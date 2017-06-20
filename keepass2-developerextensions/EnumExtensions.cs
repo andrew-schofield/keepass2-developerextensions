@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace HaveIBeenPwned.Extensions
+namespace KeePassExtensions
 {
     public static class Extensions
     {

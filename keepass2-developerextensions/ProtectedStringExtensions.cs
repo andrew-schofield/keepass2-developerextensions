@@ -1,8 +1,7 @@
 ﻿using KeePassLib.Security;
 using KeePassLib.Utility;
-using System.Linq;
 
-namespace HaveIBeenPwned.Extensions
+namespace KeePassExtensions
 {
     public static class ProtectedStringExtensions
     {
@@ -13,7 +12,7 @@ namespace HaveIBeenPwned.Extensions
             byte[] string2 = compareWith.ReadUtf8();
 
             // compare the results
-            var result = string1.SequenceEqual(string2);
+            var result = MemUtil.ArraysEqual(string1, string2);
 
             // clean up the byte arrays so we don't leak data
             MemUtil.ZeroByteArray(string1);
