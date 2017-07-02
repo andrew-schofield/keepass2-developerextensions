@@ -8,6 +8,11 @@ namespace KeePassExtensions
 {
     public static class PwEntryExtensions
     {
+        /// <summary>
+        /// Returns the date of the last password modifiation. Relies on their being accurate and adequate history entries available.
+        /// </summary>
+        /// <param name="entry">The entry from which to extract the password modification date.</param>
+        /// <returns></returns>
         public static DateTime GetPasswordLastModified(this PwEntry entry)
         {
             if (entry.History != null && entry.History.Any())
@@ -30,11 +35,22 @@ namespace KeePassExtensions
             return entry.LastModificationTime;
         }
 
+        /// <summary>
+        /// Returns whether or not the entry is in a deleted state (in the recycle bin).
+        /// </summary>
+        /// <param name="entry">The entry to check</param>
+        /// <param name="pluginHost">The plugin host containing the active database.</param>
+        /// <returns></returns>
         public static bool IsDeleted(this PwEntry entry, IPluginHost pluginHost)
         {
             return entry.ParentGroup.Uuid.CompareTo(pluginHost.Database.RecycleBinUuid) == 0;
         }
 
+        /// <summary>
+        /// Returns the domain (and tld) of the URL field if present.
+        /// </summary>
+        /// <param name="entry">The entry to check</param>
+        /// <returns></returns>
         public static string GetUrlDomain(this PwEntry entry)
         {
             var url = entry.Strings.ReadSafe(PwDefs.UrlField).ToLower();
@@ -61,6 +77,12 @@ namespace KeePassExtensions
             catch (UriFormatException) { return string.Empty; }
         }
 
+        /// <summary>
+        /// Extract the icon from a given entry
+        /// </summary>
+        /// <param name="entry">The entry to check</param>
+        /// <param name="pluginHost">The plugin host containing the active database.</param>
+        /// <returns></returns>
         public static Image GetIcon(this PwEntry entry, IPluginHost pluginHost)
         {
             var entryIcon = entry.IconId;

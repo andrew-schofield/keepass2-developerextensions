@@ -5,6 +5,12 @@ namespace KeePassExtensions
 {
     public static class ProtectedStringExtensions
     {
+        /// <summary>
+        /// Compare equality of ProtectedStrings.
+        /// </summary>
+        /// <param name="protectedString">Left-hand ProtectedString</param>
+        /// <param name="compareWith">Right-hand ProtectedString</param>
+        /// <returns></returns>
         public static bool ValueEquals(this ProtectedString protectedString, ProtectedString compareWith)
         {
             // extract the unencrypted strings
