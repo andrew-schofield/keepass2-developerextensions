@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("keepass2-developerextensions")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A collection of useful KeePass 2.x functions not exposed directly via the API")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Andrew Schofield")]
 [assembly: AssemblyProduct("keepass2-developerextensions")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright © Andrew Schofield 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
