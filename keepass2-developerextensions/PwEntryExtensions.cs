@@ -43,7 +43,17 @@ namespace KeePassExtensions
         /// <returns></returns>
         public static bool IsDeleted(this PwEntry entry, IPluginHost pluginHost)
         {
-            return entry.ParentGroup.Uuid.CompareTo(pluginHost.Database.RecycleBinUuid) == 0;
+            var RecycleBinUuid = pluginHost.Database.RecycleBinUuid;
+            var currentGroup = entry.ParentGroup;
+            while (currentGroup != null)
+            {
+                if (currentGroup.Uuid.CompareTo(RecycleBinUuid) == 0)
+                {
+                    return true;
+                }
+                currentGroup = currentGroup.ParentGroup;
+            }
+            return false;
         }
 
         /// <summary>
